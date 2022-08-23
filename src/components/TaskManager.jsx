@@ -1,17 +1,14 @@
-//import {list} from 'postcss';
-import React, { useState, useEffect } from "react";
-import { v4 as uuid } from "uuid";
+import React, { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
-
-const getTasksFromLocalStorage = () => {
-  // get tasks from local storage
-  const tasks = localStorage.getItem("tasks");
-  if (!tasks) return [];
-  return JSON.parse(tasks);
-};
+import { v4 as uuid } from "uuid";
+// import background from "../assets/background.jpg"
 
 function TaskManager() {
-  const [tasks, setTasks] = useState(getTasksFromLocalStorage);
+  const [tasks, setTasks] = useState(() => {
+    const tasks = localStorage.getItem("tasks");
+    if (!tasks) return [];
+    return JSON.parse(tasks);
+  });
   const [input, setInput] = useState("");
 
   const handleSubmit = (e) => {
@@ -23,7 +20,7 @@ function TaskManager() {
       text: input,
       completed: false,
     };
-    console.log(newTask);
+
     setTasks([newTask, ...tasks]);
     setInput("");
   };
@@ -37,13 +34,12 @@ function TaskManager() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  // map run through the items in the arrays, map returns array but loop
   return (
-    <div className="h-screen bg-blue-600 flex justify-center items-center">
-      <div className="max-w-xl bg-white rounded-xl px-5 py-10 z-10">
+    <div className="h-screen w-screen bg-blue-300 flex justify-center items-center rounded-xl px-5 py-10">
+      <div className="max-w-xl w-full max-h-96 bg-white p-8 rounded-lg z-10">
         <form
           onSubmit={handleSubmit}
-          className="space-x-5 w-full flex  w-[30rem] mb-10 justify-between"
+          className="space-x-5 flex w-[30rem] mb-10"
         >
           <input
             type="text"
@@ -53,13 +49,12 @@ function TaskManager() {
           />
           <button
             type="submit"
-            className="bg-blue-600 text-white text-lg py-2 px-7 rounded-md"
+            className="bg-blue-600 text-white text-lg py-2 px-7 rounded-md cursor-pointer"
             disabled={input === ""}
           >
             Add
           </button>
         </form>
-
         <div className="space-y-2 overflow-y-auto h-56">
           {tasks.map((task) => (
             <TaskItem key={task.id} task={task} handleDelete={handleDelete} />
@@ -69,4 +64,5 @@ function TaskManager() {
     </div>
   );
 }
+
 export default TaskManager;

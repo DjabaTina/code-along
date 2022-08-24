@@ -1193,6 +1193,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@heroicons/react@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-2.0.2.tgz#814985c245ce52ce4980eb559fa3deaea8ab8d16"
+  integrity sha512-QhjjFcgq4Xsa1X+k/OBl/Mt6ean5XlDA/Lg5hS852+Cc8rOyBsSoTZt+BXhM7kKUpL90S3Jm9lzRfeG1WxQACw==
+
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.10.4.tgz#01e7366e57d2ad104feea63e72248f22015c520c"

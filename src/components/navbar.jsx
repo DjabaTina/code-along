@@ -22,7 +22,7 @@ const links = [
     label: "About",
     to: "/about",
   },
-]
+];
 
 function Navbar() {
   return (

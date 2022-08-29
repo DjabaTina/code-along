@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import Product from "../components/Product";
 import Spinner from "../components/Spinner";
+import { useProductContext } from "../context/productContext";
 import useAxios from "../hooks/useAxios";
-import { useProductContext } from "../components/context/productContext";
 
 function ProductList() {
   // const { data, isLoading, error } = useAxios(
@@ -16,7 +15,8 @@ function ProductList() {
 
   useEffect(() => {
     setProducts(data);
-  }, [data]);
+  }, [data, setProducts]);
+
 if (isLoading) {
 return <Spinner />;
 }

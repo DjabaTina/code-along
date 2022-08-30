@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import TaskItem from "../components/TaskItem";
 import { v4 as uuid } from "uuid";
 // import background from "../assets/background.jpg"
-import {useTaskContext} from "../context/tasksContext";
+import { useTaskContext } from "../context/tasksContext";
 
 function TaskManager() {
-  const { tasks, setValue} = useTaskContext();
+  const { tasks, setValue } = useTaskContext();
   const [input, setInput] = useState("");
 
   const handleSubmit = (e) => {
@@ -27,6 +27,30 @@ function TaskManager() {
     setValue(newTasks);
   };
 
+  const handleCompleted = (id) => {
+    const newTasks = tasks.map((task) => {
+
+      if (task.id===id) {
+        return {
+          ...task,
+          completed: !task.completed,
+        };
+      }
+      return task;
+    });
+     setValue(newTasks);
+  };
+
+const handleEdit=(id) =>{
+  const newTasks = tasks.filter((task) =>{
+    if (task.id === id) {
+      setInput(task.text);
+      return false;
+    }
+     return task;
+  })
+  setValue(newTasks)
+};
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -54,7 +78,13 @@ function TaskManager() {
         </form>
         <div className="space-y-2 overflow-y-auto h-56">
           {tasks.map((task) => (
-            <TaskItem key={task.id} task={task} handleDelete={handleDelete} />
+            <TaskItem
+              key={task.id}
+              task={task}
+              handleDelete={handleDelete}
+              handleCompleted={handleCompleted}
+              handleEdit={handleEdit}
+            />
           ))}
         </div>
       </div>
